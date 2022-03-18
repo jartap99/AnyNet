@@ -191,7 +191,7 @@ def eval_model(nname, save_path, with_spn, spn_init_channels,
     model = load_model(save_path, with_spn, spn_init_channels)
     train_dataloader, test_dataloader = set_dataloaders(train_left_img, train_right_img, train_left_disp, test_left_img, test_right_img, test_left_disp)
     save_plots(model, train_dataloader, nname+"_train", batch_size=6)
-    save_plots(model, test_dataloader, nname"_test", batch_size=4)
+    save_plots(model, test_dataloader, nname+"_test", batch_size=4)
     val_ssim, val_ssim_scikit = calc_ssim(model, test_dataloader)
     tpe = calc_3pe(model, test_dataloader)
     return val_ssim, val_ssim_scikit, tpe
@@ -237,7 +237,7 @@ def main():
     stats = cbook.boxplot_stats(data, labels=labels, bootstrap=10000)
     fig, axs = plt.subplots(nrows=1, ncols=1, figsize=(6,6), sharey=True)
     axs.bxp(stats)
-    axs.set_title("Three Pioxel Error Box Plot")
+    axs.set_title("Three Pixel Error Box Plot")
     plt.savefig("box_plot_3pe.png")
 
 if __name__ == "__main__":

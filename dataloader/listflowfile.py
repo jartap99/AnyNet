@@ -51,7 +51,7 @@ def dataloader(filepath):
     n = int( 0.1*len(all_left_img) )
 
     for idx in range(n):
-        idx = random.randint(0, len(all_left_img)-1):
+        idx = random.randint(0, len(all_left_img)-1)
         test_left_img.append(all_left_img)
         test_right_img.append(all_right_img)
         test_left_disp.append(all_left_disp)
