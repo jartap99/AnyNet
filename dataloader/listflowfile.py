@@ -4,6 +4,9 @@ from PIL import Image
 import os
 import os.path
 
+import random
+random.seed(163748)
+
 IMG_EXTENSIONS = [
     '.jpg', '.JPG', '.jpeg', '.JPEG',
     '.png', '.PNG', '.ppm', '.PPM', '.bmp', '.BMP',
@@ -42,6 +45,25 @@ def dataloader(filepath):
             if is_image_file(monkaa_path + '/' + dd + '/right/' + im):
                 all_right_img.append(monkaa_path + '/' + dd + '/right/' + im)
 
+    print("all: ", len(all_left_img), len(all_right_img), len(all_left_disp) )
+    print("test: ", len(test_left_img), len(test_right_img), len(test_left_disp) )
+
+    n = int( 0.1*len(all_left_img) )
+
+    for idx in range(n):
+        idx = random.randint(0, len(all_left_img)-1):
+        test_left_img.append(all_left_img)
+        test_right_img.append(all_right_img)
+        test_left_disp.append(all_left_disp)
+
+        del(all_left_img[idx])
+        del(all_right_img[idx])
+        del(all_left_disp[idx])
+
+    print("all: ", len(all_left_img), len(all_right_img), len(all_left_disp) )
+    print("test: ", len(test_left_img), len(test_right_img), len(test_left_disp) )
+
+    """
     flying_path = filepath + [x for x in image if x == 'frames_cleanpass'][0]
     flying_disp = filepath + [x for x in disp if x == 'frames_disparity'][0]
     flying_dir = flying_path + '/TRAIN/'
@@ -99,4 +121,5 @@ def dataloader(filepath):
                     if is_image_file(driving_dir + i + '/' + j + '/' + k + '/right/' + im):
                         all_right_img.append(driving_dir + i + '/' + j + '/' + k + '/right/' + im)
 
+    """
     return all_left_img, all_right_img, all_left_disp, test_left_img, test_right_img, test_left_disp

@@ -69,6 +69,9 @@ def main():
     optimizer = optim.Adam(model.parameters(), lr=args.lr, betas=(0.9, 0.999))
     log.info('Number of model parameters: {}'.format(sum([p.data.nelement() for p in model.parameters()])))
 
+    # raj - this does not work
+    # model = mode.to(dtype=torch.bfloat16)
+    
     args.start_epoch = 0
     if args.resume:
         if os.path.isfile(args.resume):
@@ -98,7 +101,7 @@ def main():
             'optimizer': optimizer.state_dict(),
         }, savefilename)
 
-    test(TestImgLoader, model, log)
+        test(TestImgLoader, model, log, epoch)
     log.info('full training time = {:.2f} Hours'.format((time.time() - start_full_time) / 3600))
 
 
@@ -140,7 +143,7 @@ def train(dataloader, model, optimizer, log, epoch=0):
     log.info('Average train loss = ' + info_str)
 
 
-def test(dataloader, model, log):
+def test(dataloader, model, log, epoch):
 
     stages = 3 + args.with_spn
     EPEs = [AverageMeter() for _ in range(stages)]
@@ -166,8 +169,8 @@ def test(dataloader, model, log):
 
         info_str = '\t'.join(['Stage {} = {:.2f}({:.2f})'.format(x, EPEs[x].val, EPEs[x].avg) for x in range(stages)])
 
-        log.info('[{}/{}] {}'.format(
-            batch_idx, length_loader, info_str))
+        log.info('Epoch{} [{}/{}] {}'.format(
+            epoch, batch_idx, length_loader, info_str))
 
     info_str = ', '.join(['Stage {}={:.2f}'.format(x, EPEs[x].avg) for x in range(stages)])
     log.info('Average test EPE = ' + info_str)
