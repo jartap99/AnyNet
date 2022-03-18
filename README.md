@@ -1,3 +1,9 @@
+# Preface
+
+This model has been forked from AnyNet (references and license is included in the fork). 
+
+The model has been studied, and ablation studies have ben performed in order to reduce computational complexity of the model.
+
 # Anytime Stereo Image Depth Estimation on Mobile Devices
 This repository contains the code (in PyTorch) for AnyNet introduced in the following paper
 
